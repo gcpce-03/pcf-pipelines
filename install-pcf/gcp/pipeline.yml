@@ -7,23 +7,25 @@ resource_types:
     repository: pivotalcf/pivnet-resource
     tag: latest-final
 
+- name: gcs
+  type: docker-image
+  source:
+    repository: frodenas/gcs-resource
+
 resources:
 - name: pcf-pipelines
   type: git
   source:
-    uri: git@github.com:pivotal-cf/pcf-pipelines.git
-    branch: master
+    uri: git@github.com:gcpce-03/pcf-pipelines.git
+    branch: sg-v0.15.1-rc.20
     private_key: {{git_private_key}}
 
 - name: terraform-state
-  type: s3
+  type: gcs
   source:
-    region_name: {{s3_region}}
     bucket: {{s3_bucket_terraform}}
-    endpoint: {{s3_endpoint}}
+    json_key: {{gcp_service_account_key}}
     versioned_file: terraform.tfstate
-    access_key_id: {{s3_access_key_id}}
-    secret_access_key: {{s3_secret_access_key}}
 
 - name: pivnet-opsmgr
   type: pivnet
