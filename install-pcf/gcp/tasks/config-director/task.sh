@@ -37,14 +37,14 @@ network_configuration=$(
     --arg infra_vcenter_network "${GCP_RESOURCE_PREFIX}-virt-net/${GCP_RESOURCE_PREFIX}-subnet-infrastructure-${GCP_REGION}/${GCP_REGION}" \
     --arg infra_network_cidr "192.168.101.0/26" \
     --arg infra_reserved_ip_ranges "192.168.101.1-192.168.101.9" \
-    --arg infra_dns "192.168.101.1,8.8.8.8" \
+    --arg infra_dns "169.254.169.254,8.8.8.8,8.8.4.4" \
     --arg infra_gateway "192.168.101.1" \
     --arg infra_availability_zones "$availability_zones" \
     --arg deployment_network_name "ert" \
     --arg deployment_vcenter_network "${GCP_RESOURCE_PREFIX}-virt-net/${GCP_RESOURCE_PREFIX}-subnet-ert-${GCP_REGION}/${GCP_REGION}" \
     --arg deployment_network_cidr "192.168.16.0/22" \
     --arg deployment_reserved_ip_ranges "192.168.16.1-192.168.16.9" \
-    --arg deployment_dns "192.168.16.1,8.8.8.8" \
+    --arg deployment_dns "169.254.169.254,8.8.8.8,8.8.4.4" \
     --arg deployment_gateway "192.168.16.1" \
     --arg deployment_availability_zones "$availability_zones" \
     --argjson services_network_is_service_network true \
@@ -52,7 +52,7 @@ network_configuration=$(
     --arg services_vcenter_network "${GCP_RESOURCE_PREFIX}-virt-net/${GCP_RESOURCE_PREFIX}-subnet-services-1-${GCP_REGION}/${GCP_REGION}" \
     --arg services_network_cidr "192.168.20.0/22" \
     --arg services_reserved_ip_ranges "192.168.20.1-192.168.20.9" \
-    --arg services_dns "192.168.20.1,8.8.8.8" \
+    --arg services_dns "169.254.169.254,8.8.8.8,8.8.4.4" \
     --arg services_gateway "192.168.20.1" \
     --arg services_availability_zones "$availability_zones" \
     '. +
@@ -107,7 +107,7 @@ network_configuration=$(
 
 director_config=$(cat <<-EOF
 {
-  "ntp_servers_string": "0.pool.ntp.org",
+  "ntp_servers_string": "time1.google.com,time2.google.com,time3.google.com",
   "resurrector_enabled": true,
   "retry_bosh_deploys": true,
   "database_type": "internal",
