@@ -23,7 +23,7 @@ echo "starting auth"
 gcloud auth activate-service-account $gcp_service_account_email --key-file=gcloud.key
 echo "gcloud auth done"
 
-files=$(gsutil ls $bucket)
+files=$(gsutil ls "gs://${bucket}")
 echo "files are: " $files
 # files=$(aws --endpoint-url $S3_ENDPOINT --region $S3_REGION s3 ls "${S3_BUCKET_TERRAFORM}/")
 
