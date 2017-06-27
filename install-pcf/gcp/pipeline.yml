@@ -87,12 +87,11 @@ jobs:
   - get: pcf-pipelines
   - task: create-terraform-state
     params:
-      S3_BUCKET_TERRAFORM: {{s3_bucket_terraform}}
-      S3_ENDPOINT: {{s3_endpoint}}
-      S3_REGION: {{s3_region}}
-      AWS_ACCESS_KEY_ID: {{s3_access_key_id}}
-      AWS_SECRET_ACCESS_KEY: {{s3_secret_access_key}}
-    file: pcf-pipelines/tasks/create-initial-terraform-state/task.yml
+      bucket: {{s3_bucket_terraform}}
+      gcp_service_account_email: {{gcp_service_account_email}}
+      json_key: {{gcp_service_account_key}}
+      versioned_file: terraform.tfstate
+    file: pcf-pipelines/tasks/create-initial-terraform-state/gcp/task.yml
 
 - name: create-infrastructure
   serial_groups: [terraform]
