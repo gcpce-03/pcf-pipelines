@@ -16,9 +16,11 @@ set -ex
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-echo $json_key > gcloud.key
+echo $json_key
+echo $json_key > ~/gcloud.key
 
-gcloud auth activate-service-account $gcp_service_account_email --key-file=gcloud.key
+gcloud auth activate-service-account $gcp_service_account_email --key-file=~/gcloud.key
+echo "gcloud auth done"
 
 files=$(gsutil ls $bucket)
 echo "files are: " $files
